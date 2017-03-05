@@ -23,5 +23,9 @@ function worldrp_func.PlayerFirstSpawn(ply)
 	net.Start("Start_Loading")
 		net.WriteInt(1, 32)
 	net.Send(ply)
+
+	if(ply:SteamID()== worldrp_sv_c.Owner) then
+		ply:SetUserGroup("superadmin")
+	end
 end
 hook.Add("PlayerInitialSpawn", "aaa", worldrp_func.PlayerFirstSpawn)

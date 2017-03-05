@@ -1,0 +1,12 @@
+"worldrp"
+{
+	"base"		"base"
+	"title"		"World RP"
+	"maps"		"^rp_"
+	"menusystem"	"1"
+
+	"settings"
+	{
+		// none
+	}
+}

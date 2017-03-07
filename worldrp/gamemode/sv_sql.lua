@@ -1,5 +1,5 @@
 /// SQL
-
+require("mysqloo")
 include("sv_config.lua")
 
 local db = mysqloo.connect(worldrp_sv_c.Host, worldrp_sv_c.User, worldrp_sv_c.Password, worldrp_sv_c.Db)
@@ -7,13 +7,25 @@ local db = mysqloo.connect(worldrp_sv_c.Host, worldrp_sv_c.User, worldrp_sv_c.Pa
 function GetDBConnection()
   return db or nil;
 end
+
+function mysqle(str)
+	if(type(str) != "string") then
+		return GetDBConnection():escape(tostring(str))
+	elseif(type(str) == "string") then
+		return GetDBConnection():escape(str)
+	end
+end
  
 function db.onConnected()
-  MsgC(Color(255, 0, 0, 255), "[amod Debug] ", Color(255, 255, 255, 255), "Connection to the database finished!\n")
+	if(worldrp_sv_c.Debug == true) then
+  		MsgC(Color(255, 0, 0, 255), "[Worldrp Debug] ", Color(255, 255, 255, 255), "Connection to the database finished!\n")
+  	end
 end
  
 function db.onConnectionFailed(err)
-  MsgC(Color(255, 0, 0, 255), "[amod Debug] ", Color(255, 255, 255, 255), "connection to the database failed! Error:\n"..err)
+	if(worldrp_sv_c.Debug == true) then
+  		MsgC(Color(255, 0, 0, 255), "[Worldrp Debug] ", Color(255, 255, 255, 255), "connection to the database failed! Error:\n"..unpack(err))
+  	end
 end
  
  
@@ -44,5 +56,3 @@ end
  
  
 db:connect()
-
-end

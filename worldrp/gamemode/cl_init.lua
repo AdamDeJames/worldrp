@@ -2,11 +2,14 @@
 // Clientside files; including files
 
 include("shared.lua")
+include("cl_hud.lua")
+include("sh_config.lua")
 
 local worldrp_cl = {};
 
 function worldrp_cl.SendScreen()
 	//if(net.ReadInt() == 1) then
+	if(LocalPlayer():GetNWBool("worldrp_loaded") == true) then return end
 		local frame = vgui.Create("DFrame");
 			frame:SetPos(0, 0)
 			frame:ShowCloseButton(false)
@@ -17,6 +20,8 @@ function worldrp_cl.SendScreen()
 				draw.RoundedBox(0, 0, 0, w, h, Color(0, 0, 0, 255))
 			end
 		concommand.Add("Remove_menu", function()
+			if(LocalPlayer():GetNWBool("worldrp_loaded") != true) then return end
+			LocalPlayer():SetNWBool("worldrp_closed", true)
 			frame:Close();
 		end)
 	//end

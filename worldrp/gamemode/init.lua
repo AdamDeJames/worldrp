@@ -13,6 +13,14 @@ include("sv_config.lua")
 include("sv_player.lua")
 include("sh_config.lua")
 
+local jobs = "/gamemodes/worldrp/gamemode/jobs"
+local files, folders = file.Find(jobs.."*", "GAME")
+
+for k, v in pairs(files) do
+	if string.GetExtensionFromFilename(v) ~= "lua" then continue end
+    include(fol .. v)
+end
+
 
 //
 

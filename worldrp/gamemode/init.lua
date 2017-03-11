@@ -12,6 +12,8 @@ include("shared.lua")
 include("sv_config.lua")
 include("sv_player.lua")
 include("sh_config.lua")
+
+
 //
 
 // Networking
@@ -22,12 +24,18 @@ util.AddNetworkString("Start_Loading")
 
 local worldrp_func = {}
 
+function worldrp_func.ServerInit()
+	game.ConsoleCommand("sbox_godmode 0\n")
+	game.ConsoleCommand("sbox_noclip 0\n")
+end
+hook.Add("Initialize", "SetCvars", worldrp_func.ServerInit)
+
 function worldrp_func.PlayerFirstSpawn(ply)
 	ply:SetNWBool("worldrp_loaded", false)
 	ply:Freeze(true);
-	net.Start("Start_Loading")
-		net.WriteInt(1, 32)
-	net.Send(ply)
+	//net.Start("Start_Loading")
+		//net.WriteInt(1, 32)
+	//net.Send(ply)
 
 	if(ply:SteamID()== worldrp_sv_c.Owner) then
 		ply:SetUserGroup("superadmin")

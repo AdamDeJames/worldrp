@@ -14,15 +14,11 @@ include("sv_player.lua")
 include("sh_config.lua")
 
 local jobs = "gamemodes/worldrp/gamemode/jobs/"
-local files, folders = file.Find(jobs.."*.lua", "GAME")
 
-
-for k, v in pairs(files) do
-    include("jobs/"..v)
 local files, folders = file.Find(jobs.."*.lua", "GAME") or {}
 
 for k, v in pairs(files) do
-    include("jobs/" .. v)
+    include("jobs/"..v)
 end
 
 //

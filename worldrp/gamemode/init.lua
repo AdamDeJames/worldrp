@@ -13,15 +13,15 @@ include("sv_config.lua")
 include("sv_player.lua")
 include("sh_config.lua")
 
-local jobs = "/gamemodes/worldrp/gamemode/jobs"
-local files, folders = file.Find(jobs.."*", "GAME")
+local jobs = "gamemodes/worldrp/gamemode/jobs/"
+local files, folders = file.Find(jobs.."*.lua", "GAME")
+
 
 for k, v in pairs(files) do
-	if string.GetExtensionFromFilename(v) ~= "lua" then continue end
-    include(fol .. v)
+    include("jobs/"..v)
 end
 
-
+//
 //
 
 // Networking
@@ -55,7 +55,7 @@ hook.Add("PlayerInitialSpawn", "aaa", worldrp_func.PlayerFirstSpawn)
 function worldrp_func.PlayerSpawned(ply)
 	local cpos = ply:GetPos()
 	print(cpos);
-	local q1 = "SELECT * FROM spawnpoints;"
+	local q1 = "SELECT * FROM spawnpoints WHERE job = '"..ply:Team().."';"
 	GetDBConnection():Query(q1, function(result)
 		PrintTable(result)
 		if(result or #result > 0) then
@@ -64,7 +64,31 @@ function worldrp_func.PlayerSpawned(ply)
 	end)
 	if(ply:GetNWBool("worldrp_loaded")) then
 		if(ply:GetNWBool("worldrp_closed")) then return end
-		ply:ConCommand("Remove_Menu")
+		//ply:ConCommand("Remove_Menu")
 	end
 end
 hook.Add("PlayerSpawn", "aaa2", worldrp_func.PlayerSpawned)
+
+function GM:OnPlayerChangedTeam(ply, old, new)
+	ply:SetNWString("worldrp_jobname", team.GetName(new))
+	ply:SetNWInt("worldrp_salary", job_db[new].Salary)
+end
+
+function worldrp_func.Loadout(ply)
+	for k, v in pairs(job_db[ply:Team()].DefaultWeapons) do
+		ply:Give(v)
+	end
+
+	for k, v in pairs(worldrp_sh_c.DefaultWeps) do
+		ply:Give(v)
+	end
+
+	return true
+end
+hook.Add("PlayerLoadout", "defaultweaponsreeroo", worldrp_func.Loadout)
+
+concommand.Add("aaaa", function()
+	for k, v in pairs(player.GetAll()) do
+		print(job_db[v:Team()].Name)
+	end
+end)

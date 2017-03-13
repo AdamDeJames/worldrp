@@ -42,13 +42,13 @@ function wrp_hud.DrawHud()
     surface.SetDrawColor(255,255,255,255)
     surface.SetMaterial(Material("icon16/money_add.png"))
     surface.DrawTexturedRect(ScrW()-1910, ScrH()-90, 16, 16)
-    draw.SimpleText("Error", "ChatFont", ScrW()-1890, ScrH()-90, Color(255, 255, 255, 255))
+    draw.SimpleText("Salary: "..tostring(LocalPlayer():GetNWInt("worldrp_salary")), "ChatFont", ScrW()-1890, ScrH()-90, Color(255, 255, 255, 255))
 
     //Job
     surface.SetDrawColor(255,255,255,255)
     surface.SetMaterial(Material("icon16/wrench.png"))
     surface.DrawTexturedRect(ScrW()-1910, ScrH()-70, 16, 16)
-    draw.SimpleText("Occupation: "..team.GetName(LocalPlayer():Team()), "Chatfont", ScrW()-1890, ScrH()-70)
+    draw.SimpleText("Job: "..LocalPlayer():GetNWString("worldrp_job"), "Chatfont", ScrW()-1890, ScrH()-70)
     // Health
     draw.RoundedBox(4, ScrW()-1920, ScrH()-180, 110, 30, Color(10, 10, 10, 200))
     draw.RoundedBox(4, ScrW()-1915, ScrH()-175, wrp_hud.HP, 20, Color(187, 37, 0, 255))

@@ -7,6 +7,9 @@ function meta:CreateData()
   print(q1)
   GetDBConnection():Query(q1, function(result)
     self:LoadData();
+    if(worldrp_sv_c.Debug) then
+      MsgC(Color(255, 0, 0, 255), "[WorldRP Debug] ", Color(255, 255, 255, 255), "Player "..self:Name().."'s data was created.")
+    end
   end)
 end
 
@@ -22,7 +25,24 @@ function meta:LoadData()
       self:SetNWInt("worldrp_cash", result.money)
       self:SetNWInt("worldrp_playtime", CurTime() - result.playtime)
       self:SetNWBool("worldrp_loaded", true)
+      self:SetTeam(TEAM_CITIZEN)
       self:KillSilent()
+      if(worldrp_sv_c.Debug) then
+        MsgC(Color(255, 0, 0, 255), "[WorldRP Debug] ", Color(255, 255, 255, 255), "Player "..self:Name().."'s data has been loaded.")
+      end
+    end
+  end)
+end
+
+function meta:SaveData()
+  local money = self:GetMoney()
+  local playtime = self:CurTime() - self:GetNWInt("worldrp_playtime")
+  local id = self:SteamID()
+  local name = mysqle(self:Name())
+  local q1 = "UPDATE `players` SET money='"..money.."', playtime='"..playtime.."', steamname='"..name.."' WHERE steamid = '"..id.."';"
+  GetDBConnection():Query(q1, function(results)
+    if(worldrp_sv_c.Debug) then
+      MsgC(Color(255, 0, 0, 255), "[WorldRP Debug] ", Color(255, 255, 255, 255), "Data saved.")
     end
   end)
 end

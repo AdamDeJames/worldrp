@@ -26,4 +26,15 @@ function worldrp_cl.SendScreen()
 		end)
 	//end
 end
-net.Receive("Start_Loading", worldrp_cl.SendScreen())
+//net.Receive("Start_Loading", worldrp_cl.SendScreen())
+
+function worldrp_cl.F4Menu()
+	local ply = LocalPlayer()
+
+	local frame = vgui.Create("DFrame");
+		frame:SetSize(ScrW()/2, ScrH()-50)
+		frame:Center()
+		frame:SetDraggable(false)
+		frame:MakePopup()
+end
+concommand.Add("test_f4", worldrp_cl.F4Menu)

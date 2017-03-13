@@ -92,3 +92,9 @@ concommand.Add("aaaa", function()
 		print(job_db[v:Team()].Name)
 	end
 end)
+
+timer.Simple(30, function()
+	for k, v in pairs(player.GetAll()) do
+		v:SaveData()
+	end
+end)

@@ -1,0 +1,1 @@
+There is now a beta branch. All updates will be put on it until they're deemed stable.

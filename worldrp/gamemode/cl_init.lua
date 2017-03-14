@@ -36,5 +36,26 @@ function worldrp_cl.F4Menu()
 		frame:Center()
 		frame:SetDraggable(false)
 		frame:MakePopup()
+	local psheet = vgui.Create("DPropertySheet", frame)
+		psheet:Dock(FILL)
+	local welcome = vgui.Create("DPanel", psheet)
+		psheet:AddSheet("Rules and Info", welcome, "icon16/user.png")
+		local rules = vgui.Create("DLabel", welcome)
+			rules:AlignLeft(5)
+			rules:SetColor(Color(0, 0, 0, 255))
+			rules:SetText(worldrp_sh_c.Rules)
+			rules:SizeToContents()
+	local ranks = vgui.Create("DPanel", psheet)
+		psheet:AddSheet("Ranks & Staff", ranks, "icon16/star.png")
+
 end
 concommand.Add("test_f4", worldrp_cl.F4Menu)
+
+net.Receive("worldrp_notify", function()
+	local str = net.ReadString()
+	local time = net.ReadFloat()
+	if(time > 10 or time == nil) then
+		time = 5
+	end
+	notification.AddLegacy(str, NOTIFY_GENERIC, 5)
+end)

@@ -36,7 +36,7 @@ end
 
 function meta:SaveData()
   local money = self:GetMoney()
-  local playtime = self:CurTime() - self:GetNWInt("worldrp_playtime")
+  local playtime = "1"
   local id = self:SteamID()
   local name = mysqle(self:Name())
   local q1 = "UPDATE `players` SET money='"..money.."', playtime='"..playtime.."', steamname='"..name.."' WHERE steamid = '"..id.."';"
@@ -56,4 +56,22 @@ function meta:GiveMoney(int)
     return
   end
   self:SetNWInt("worldrp_cash", self:GetMoney() + int)
+end
+
+function meta:Notify(str, time)
+  if(type(str) == "table") then
+    str = unpack(str)
+  end
+  net.Start("worldrp_notify")
+    net.WriteString(str)
+    net.WriteFloat(time)
+  net.Send(self)
+end
+
+function meta:GetKarma()
+  return self:GetNWFloat("wrp_karma") or 0
+end
+
+function meta:SetKarma(int)
+  self:SetNWFloat("wrp_karma", int)
 end

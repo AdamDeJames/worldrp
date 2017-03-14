@@ -77,7 +77,7 @@ function wrp_hud.DrawHud()
     else
     	if(LocalPlayer():Alive() != false and IsValid(wrp_hud.Wep1)) then
         	draw.RoundedBox(4, ScrW()-1810, ScrH()-180, 110, 30, Color(10, 10, 10, 200))
-        	draw.RoundedBox(4, ScrW()-1805, ScrH()-175, math.Clamp(wrp_hud.Wep1:Clip1() * 6, 2, 100), 20, Color(0, 0, 150, 255))
+        	draw.RoundedBox(4, ScrW()-1805, ScrH()-175, math.Clamp(wrp_hud.Wep1:Clip1() * 15, 2, 100), 20, Color(0, 0, 150, 255))
         	if(wrp_hud.Wep1:Clip1() > 0) then
             	draw.SimpleText("Ammo: "..wrp_hud.Wep1:Clip1().."/"..LocalPlayer():GetAmmoCount(wrp_hud.Wep1:GetPrimaryAmmoType()),"ChatFont", ScrW()-1800, ScrH()-175, Color(255, 255, 255, 255))
         	else

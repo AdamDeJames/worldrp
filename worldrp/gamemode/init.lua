@@ -26,7 +26,7 @@ end
 
 // Networking
 util.AddNetworkString("Start_Loading")
-
+util.AddNetworkString("worldrp_notify")
 
 // Serverside; functions; tables; etc
 
@@ -70,8 +70,14 @@ end
 hook.Add("PlayerSpawn", "aaa2", worldrp_func.PlayerSpawned)
 
 function GM:OnPlayerChangedTeam(ply, old, new)
-	ply:SetNWString("worldrp_jobname", team.GetName(new))
-	ply:SetNWInt("worldrp_salary", job_db[new].Salary)
+	if(ply:GetKarma() >= job_db[new].ReqKarma) then
+		ply:SetNWString("worldrp_jobname", team.GetName(new))
+		ply:SetNWInt("worldrp_salary", job_db[new].Salary)
+		return true
+	else
+		ply:Notify("You need more karma to join that team!", 5)
+		return false
+	end
 end
 
 function worldrp_func.Loadout(ply)
@@ -88,7 +94,7 @@ end
 hook.Add("PlayerLoadout", "defaultweaponsreeroo", worldrp_func.Loadout)
 
 concommand.Add("aaaa", function()
-	for k, v in pairs(player.GetAll()) do
+	for k, v in pairs(player.GetAll()) do // this is for testing and is only printed in the server's console, not the clients.
 		print(job_db[v:Team()].Name)
 	end
 end)

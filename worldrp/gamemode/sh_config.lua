@@ -28,4 +28,4 @@ worldrp_sh_c.Rules = [[General Rules
 1.12 You are not required to provide a reason for your RP actions to other players in OOC, even if they request it; you are only required to provide a reason for your RP actions to administrative staff when they ask. 
 1.13 *UPDATED* You cannot be racist, sexist, and discriminatory (homophobic) OOC (Out Of Character).
 1.13a *UPDATED* You cannot have a racist, sexist or discriminatory (homophobic) Steam Name. Doing such may result in a kick or if the situation calls for it, a ban.
-1.13b *UPDATED* You can be racist, sexist, and discriminatory (homophobic) IC (In Character). However, do not do this to excess or if it doesn’t fit your character’s roleplay.]]
+1.13b *UPDATED* You can be racist, sexist, and discriminatory (homophobic) IC (In Character). However, do not do this to excess or if it doesn’t fit your character’s roleplay.]] -- from FL RP, not actual rules just needed a large wall of text to test sizetocontents
